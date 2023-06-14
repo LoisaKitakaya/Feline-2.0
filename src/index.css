@@ -8,6 +8,13 @@
 body,
 html {
   font-family: "Ubuntu", sans-serif !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  scroll-behavior: smooth !important;
+}
+
+.body {
+  min-height: 78.25vh !important;
 }
 
 /* drawer styles */
@@ -85,7 +92,7 @@ html {
 	Only apply the box-shadow when open to prevent the shadow
   from appearing on the edge of the screen when inactive
  */
-.drawer-container.open .drawer {
+.drawer-container.in.open .drawer {
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
 }
 

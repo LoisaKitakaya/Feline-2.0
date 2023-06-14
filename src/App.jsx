@@ -1,12 +1,10 @@
-import Navbar from "./components/nav/Navbar";
+import PageView from "./components/layout/PageView";
+import Home from "./pages/Home";
 
 const App = () => {
   return (
     <>
-      <Navbar />
-      <div className="mx-4">
-        <h1 className="text-3xl font-bold underline">Hello world!</h1>
-      </div>
+      <PageView view={<Home />} />
     </>
   );
 };
