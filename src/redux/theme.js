@@ -8,12 +8,16 @@ export const darkThemeReducer = createSlice({
       : false,
   },
   reducers: {
-    toggleTheme: (state) => {
-      localStorage.setItem("isDark", !state.isDark);
-      state.isDark = !state.isDark;
+    toggleDark: (state) => {
+      localStorage.setItem("isDark", true);
+      state.isDark = localStorage.getItem("isDark");
+    },
+    toggleLight: (state) => {
+      localStorage.setItem("isDark", false);
+      state.isDark = localStorage.getItem("isDark");
     },
   },
 });
 
-export const { toggleTheme } = darkThemeReducer.actions;
+export const { toggleDark, toggleLight } = darkThemeReducer.actions;
 export default darkThemeReducer.reducer;

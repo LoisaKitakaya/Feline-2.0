@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 
 import "./themes.css";
 
@@ -41,6 +41,7 @@ const ThemeToggle = () => {
 
   useEffect(() => {
     updateTheme(isEnabled);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isEnabled]);
 
   return (

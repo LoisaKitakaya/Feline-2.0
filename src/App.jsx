@@ -41,6 +41,7 @@ const App = () => {
 
   useEffect(() => {
     checkNotification(notification);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [notification]);
 
   return (
