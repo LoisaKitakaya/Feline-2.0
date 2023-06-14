@@ -1,4 +1,7 @@
 import { Routes, Route, useNavigate } from "react-router-dom";
+import { useEffect } from "react";
+import { useSelector } from "react-redux";
+import toast, { Toaster } from "react-hot-toast";
 import {
   ClerkProvider,
   SignedIn,
@@ -21,6 +24,24 @@ const clerkPubKey = import.meta.env.VITE_REACT_APP_CLERK_PUBLISHABLE_KEY;
 
 const App = () => {
   const navigate = useNavigate();
+
+  const notification = useSelector((state) => state.toast);
+
+  const checkNotification = (notification) => {
+    if (notification.type && notification.message) {
+      if (notification.type === "success") {
+        toast.success(notification.message);
+      } else if (notification.type === "error") {
+        toast.error(notification.message);
+      }
+    } else {
+      return;
+    }
+  };
+
+  useEffect(() => {
+    checkNotification(notification);
+  }, [notification]);
 
   return (
     <>
@@ -89,6 +110,10 @@ const App = () => {
           />
         </Routes>
       </ClerkProvider>
+
+      {/* notifications */}
+      <Toaster position="top-center" reverseOrder={false} />
+      {/* notifications */}
     </>
   );
 };
