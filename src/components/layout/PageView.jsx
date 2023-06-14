@@ -1,8 +1,11 @@
 /* eslint-disable react/prop-types */
 import Footer from "../nav/Footer";
 import Navbar from "../nav/Navbar";
+import PageTitle from "../effects/PageTitle";
 
-const PageView = ({ view }) => {
+const PageView = ({ view, subTitle }) => {
+  PageTitle(subTitle);
+
   return (
     <>
       <Navbar />
