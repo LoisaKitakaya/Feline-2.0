@@ -4,6 +4,8 @@ import { createPortal } from "react-dom";
 import classNames from "classnames";
 import useMountTransition from "../effects/useMountTransition";
 
+import "./drawer.css";
+
 const createPortalRoot = () => {
   const drawerRoot = document.createElement("div");
   drawerRoot.setAttribute("id", "drawer-root");
