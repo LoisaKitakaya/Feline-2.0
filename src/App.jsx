@@ -11,6 +11,7 @@ import {
 import PageView from "./components/layout/PageView";
 import Home from "./pages/Home";
 import Accounts from "./pages/Accounts";
+import CheckAuth from "./components/auth/CheckAuth";
 
 if (!import.meta.env.VITE_REACT_APP_CLERK_PUBLISHABLE_KEY) {
   throw new Error("Missing Publishable Key");
@@ -66,6 +67,19 @@ const App = () => {
               <>
                 <SignedIn>
                   <PageView view={<Accounts />} subTitle={"Accounts"} />
+                </SignedIn>
+                <SignedOut>
+                  <RedirectToSignIn />
+                </SignedOut>
+              </>
+            }
+          />
+          <Route
+            path="/check-auth"
+            element={
+              <>
+                <SignedIn>
+                  <PageView view={<CheckAuth />} subTitle={"Check auth"} />
                 </SignedIn>
                 <SignedOut>
                   <RedirectToSignIn />
