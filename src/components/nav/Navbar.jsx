@@ -16,7 +16,7 @@ const Navbar = () => {
           <div className="mx-2" />
           <div className="flex justify-between items-center">
             <button
-              className="px-2 py-1 cursor-pointer border rounded hover:shadow-sm flex justify-between items-center"
+              className="px-2 py-1 cursor-pointer border rounded flex justify-between items-center"
               type="button"
               onClick={() => setIsOpen(!isOpen)}
             >
