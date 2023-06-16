@@ -72,7 +72,7 @@ const Tables = ({ data, columns, setSelectedRow }) => {
       <hr className="my-2 border-none" />
       <div className="table-data">
         <table className="table-auto">
-          <thead className="text-left border-t border-b">
+          <thead className="text-left border">
             {table.getHeaderGroups().map((headerGroup) => (
               <tr key={headerGroup.id}>
                 {headerGroup.headers.map((header) => {
@@ -80,7 +80,7 @@ const Tables = ({ data, columns, setSelectedRow }) => {
                     <th
                       key={header.id}
                       colSpan={header.colSpan}
-                      className="py-2 font-bold"
+                      className="py-2 font-bold px-3 border-b"
                     >
                       {header.isPlaceholder ? null : (
                         <>
@@ -119,10 +119,10 @@ const Tables = ({ data, columns, setSelectedRow }) => {
           <tbody>
             {table.getRowModel().rows.map((row) => {
               return (
-                <tr key={row.id} className="border-b">
+                <tr key={row.id} className="border-x">
                   {row.getVisibleCells().map((cell) => {
                     return (
-                      <td key={cell.id} className="py-2">
+                      <td key={cell.id} className="py-2 px-3 border-y">
                         {flexRender(
                           cell.column.columnDef.cell,
                           cell.getContext()

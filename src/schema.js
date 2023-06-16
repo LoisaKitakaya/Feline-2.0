@@ -536,10 +536,7 @@ export const UPDATE_PRODUCT = gql`
     $selling_price: String!
     $current_stock_level: String!
     $units_sold: String!
-    $reorder_level: String!
     $supplier_name: String!
-    $supplier_phone_number: String!
-    $supplier_email: String!
   ) {
     updateProduct(
       id: $id
@@ -551,10 +548,7 @@ export const UPDATE_PRODUCT = gql`
       selling_price: $selling_price
       current_stock_level: $current_stock_level
       units_sold: $units_sold
-      reorder_level: $reorder_level
       supplier_name: $supplier_name
-      supplier_phone_number: $supplier_phone_number
-      supplier_email: $supplier_email
     ) {
       id
     }

@@ -74,6 +74,19 @@ body {
   overflow-x: auto !important;
 }
 
+input,
+select,
+textarea {
+  color: var(--black) !important;
+}
+
+table {
+  width: 100%;
+  margin: 0 auto;
+  /* white-space: nowrap; */
+  border-collapse: collapse;
+}
+
 dialog::backdrop {
   backdrop-filter: blur(10px) !important;
 }

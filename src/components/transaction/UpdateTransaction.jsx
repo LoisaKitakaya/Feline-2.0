@@ -16,9 +16,9 @@ import { setNewNotification, clearOldNotification } from "../../redux/toast";
 const UpdateTransaction = ({ account_id, id }) => {
   const dispatch = useDispatch();
 
-  const [parent, setParent] = useState(null);
-  const [child, setChild] = useState(null);
-  const [type, setType] = useState(null);
+  const [parent, setParent] = useState("");
+  const [child, setChild] = useState("");
+  const [type, setType] = useState("");
 
   const [updateTransaction, { loading, data, error }] = useMutation(
     UPDATE_TRANSACTION,
@@ -108,7 +108,7 @@ const UpdateTransaction = ({ account_id, id }) => {
       <div className="mt-8 mb-4">
         <button
           type="submit"
-          className="w-full rounded-md border py-2 px-4 bg-red-500 hover:bg-red-600"
+          className="w-full rounded-md border py-2 px-4 bg-emerald-500 hover:bg-emerald-600"
         >
           {loading ? <ButtonSpinner /> : <span>Submit</span>}
         </button>

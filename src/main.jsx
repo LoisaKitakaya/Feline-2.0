@@ -14,10 +14,16 @@ import App from "./App.jsx";
 
 import "./index.css";
 import store from "./store.js";
-import 'react-tabs/style/react-tabs.css';
+import "react-tabs/style/react-tabs.css";
+
+if (!import.meta.env.VITE_REACT_APP_TOMCAT) {
+  console.warn("Missing Backend Endpoint");
+}
+
+const tomcat = import.meta.env.VITE_REACT_APP_TOMCAT;
 
 const httpLink = createHttpLink({
-  uri: "http://127.0.0.1:8000/graphql/",
+  uri: tomcat ? tomcat : "http://127.0.0.1:8000/graphql/",
 });
 
 const authLink = setContext((_, { headers }) => {
@@ -46,9 +52,9 @@ ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <ApolloProvider client={client}>
       <Provider store={store}>
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
       </Provider>
     </ApolloProvider>
   </React.StrictMode>
