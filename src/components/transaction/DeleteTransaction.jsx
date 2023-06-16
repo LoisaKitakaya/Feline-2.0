@@ -66,7 +66,10 @@ const DeleteTransaction = ({ account_id, id, confirmDelete }) => {
         </p>
       </div>
       <div className="mt-8 mb-4">
-        <button type="submit" className="w-full rounded-md border py-2 px-4">
+        <button
+          type="submit"
+          className="w-full rounded-md border py-2 px-4 bg-red-500 hover:bg-red-600"
+        >
           {loading ? <ButtonSpinner /> : <span>Delete</span>}
         </button>
       </div>

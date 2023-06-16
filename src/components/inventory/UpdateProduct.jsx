@@ -6,10 +6,7 @@ import ButtonSpinner from "../spinner/ButtonSpinner";
 import ProductCategory from "../recurring/ProductCategory";
 import ProductSubCategory from "../recurring/ProductSubCategory";
 import { UPDATE_PRODUCT, GET_ALL_PRODUCTS } from "../../schema";
-import {
-  setNewNotification,
-  clearOldNotification,
-} from "../../redux/toast";
+import { setNewNotification, clearOldNotification } from "../../redux/toast";
 
 const UpdateProduct = ({ account_id, id }) => {
   const dispatch = useDispatch();
@@ -199,7 +196,10 @@ const UpdateProduct = ({ account_id, id }) => {
         </label>
       </div>
       <div className="mt-8 mb-4">
-        <button type="submit" className="w-full rounded-md border py-2 px-4">
+        <button
+          type="submit"
+          className="w-full rounded-md border py-2 px-4 bg-emerald-500 hover:bg-emerald-600"
+        >
           {loading ? <ButtonSpinner /> : <span>Submit</span>}
         </button>
       </div>

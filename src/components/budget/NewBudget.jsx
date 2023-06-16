@@ -4,12 +4,9 @@ import { useMutation } from "@apollo/client";
 import AccountList from "../recurring/AccountList";
 import ButtonSpinner from "../spinner/ButtonSpinner";
 import TransactionCategory from "../recurring/TransactionCategory";
-import { CREATE_BUDGET, GET_ALL_BUDGETS } from "../../assets/schema";
+import { CREATE_BUDGET, GET_ALL_BUDGETS } from "../../schema";
 import TransactionSubCategory from "../recurring/TransactionSubCategory";
-import {
-  setNewNotification,
-  clearOldNotification,
-} from "../../redux/reducers/toast";
+import { setNewNotification, clearOldNotification } from "../../redux/toast";
 
 const NewBudget = () => {
   const dispatch = useDispatch();
@@ -48,7 +45,7 @@ const NewBudget = () => {
             account_id: e.target.account_id.value,
             budget_name: e.target.budget_name.value,
             budget_description: e.target.budget_description.value,
-            budget_amount: parseFloat(e.target.budget_amount.value),
+            budget_amount: e.target.budget_amount.value,
             category: parent,
             sub_category: child,
           },
@@ -92,7 +89,10 @@ const NewBudget = () => {
       <TransactionCategory setParent={setParent} />
       {parent && <TransactionSubCategory parent={parent} setChild={setChild} />}
       <div className="mt-8 mb-4">
-        <button type="submit" className="w-full rounded-md border py-2 px-4">
+        <button
+          type="submit"
+          className="w-full rounded-md border py-2 px-4 bg-emerald-500 hover:bg-emerald-600"
+        >
           {loading ? <ButtonSpinner /> : <span>Submit</span>}
         </button>
       </div>

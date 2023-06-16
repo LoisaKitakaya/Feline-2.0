@@ -57,7 +57,7 @@ const DeleteAccount = ({ id, account_name }) => {
       <div className="mt-8 mb-4">
         <button
           type="submit"
-          className="w-full rounded-md border py-2 px-4 bg-emerald-500 hover:bg-emerald-600"
+          className="w-full rounded-md border py-2 px-4 bg-red-500 hover:bg-red-600"
         >
           {loading ? <ButtonSpinner /> : <span>Delete</span>}
         </button>

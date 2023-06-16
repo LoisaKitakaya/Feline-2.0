@@ -1,12 +1,10 @@
+/* eslint-disable react/prop-types */
 import { useDispatch } from "react-redux";
 import { useMutation } from "@apollo/client";
 import { useNavigate } from "react-router-dom";
 import ButtonSpinner from "../spinner/ButtonSpinner";
-import { GET_ALL_BUDGETS, DELETE_BUDGET } from "../../assets/schema";
-import {
-  setNewNotification,
-  clearOldNotification,
-} from "../../redux/reducers/toast";
+import { GET_ALL_BUDGETS, DELETE_BUDGET } from "../../schema";
+import { setNewNotification, clearOldNotification } from "../../redux/toast";
 
 const DeleteBudget = ({ id, budget_name }) => {
   const dispatch = useDispatch();
@@ -56,7 +54,10 @@ const DeleteBudget = ({ id, budget_name }) => {
         </p>
       </div>
       <div className="mt-8 mb-4">
-        <button type="submit" className="w-full rounded-md border py-2 px-4">
+        <button
+          type="submit"
+          className="w-full rounded-md border py-2 px-4 bg-red-500 hover:bg-red-600"
+        >
           {loading ? <ButtonSpinner /> : <span>Delete</span>}
         </button>
       </div>

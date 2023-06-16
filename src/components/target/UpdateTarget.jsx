@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useMutation } from "@apollo/client";
@@ -5,15 +6,8 @@ import AccountList from "../recurring/AccountList";
 import ButtonSpinner from "../spinner/ButtonSpinner";
 import TransactionCategory from "../recurring/TransactionCategory";
 import TransactionSubCategory from "../recurring/TransactionSubCategory";
-import {
-  UPDATE_TARGET,
-  GET_TARGET,
-  GET_ALL_TARGETS,
-} from "../../assets/schema";
-import {
-  setNewNotification,
-  clearOldNotification,
-} from "../../redux/reducers/toast";
+import { UPDATE_TARGET, GET_TARGET, GET_ALL_TARGETS } from "../../schema";
+import { setNewNotification, clearOldNotification } from "../../redux/toast";
 
 const UpdateTarget = ({ id }) => {
   const dispatch = useDispatch();
@@ -52,7 +46,7 @@ const UpdateTarget = ({ id }) => {
             id: id,
             target_name: e.target.target_name.value,
             target_description: e.target.target_description.value,
-            target_amount: parseFloat(e.target.target_amount.value),
+            target_amount: e.target.target_amount.value,
             category: parent,
             sub_category: child,
           },
@@ -96,7 +90,10 @@ const UpdateTarget = ({ id }) => {
       <TransactionCategory setParent={setParent} />
       {parent && <TransactionSubCategory parent={parent} setChild={setChild} />}
       <div className="mt-8 mb-4">
-        <button type="submit" className="w-full rounded-md border py-2 px-4">
+        <button
+          type="submit"
+          className="w-full rounded-md border py-2 px-4 bg-emerald-500 hover:bg-emerald-600"
+        >
           {loading ? <ButtonSpinner /> : <span>Submit</span>}
         </button>
       </div>

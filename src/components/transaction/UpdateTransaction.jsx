@@ -11,10 +11,7 @@ import {
   GET_ALL_ACCOUNT_TRANSACTIONS,
   GET_ACCOUNT,
 } from "../../schema";
-import {
-  setNewNotification,
-  clearOldNotification,
-} from "../../redux/toast";
+import { setNewNotification, clearOldNotification } from "../../redux/toast";
 
 const UpdateTransaction = ({ account_id, id }) => {
   const dispatch = useDispatch();
@@ -63,7 +60,7 @@ const UpdateTransaction = ({ account_id, id }) => {
             id: id,
             account_id: account_id,
             transaction_type: type,
-            transaction_amount: parseFloat(e.target.transaction_amount.value),
+            transaction_amount: e.target.transaction_amount.value,
             transaction_date: e.target.transaction_date.value,
             description: e.target.description.value,
             category: parent,
@@ -109,7 +106,10 @@ const UpdateTransaction = ({ account_id, id }) => {
       <TransactionCategory setParent={setParent} />
       {parent && <TransactionSubCategory parent={parent} setChild={setChild} />}
       <div className="mt-8 mb-4">
-        <button type="submit" className="w-full rounded-md border py-2 px-4">
+        <button
+          type="submit"
+          className="w-full rounded-md border py-2 px-4 bg-red-500 hover:bg-red-600"
+        >
           {loading ? <ButtonSpinner /> : <span>Submit</span>}
         </button>
       </div>
