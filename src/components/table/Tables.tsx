@@ -3,6 +3,7 @@ import React from "react";
 import DebouncedInput from "./DebouncedInput";
 import { fuzzyFilter } from "./Fuzzy";
 import Filter from "./Filter";
+import { useSelector } from "react-redux";
 import {
   useReactTable,
   ColumnFiltersState,
@@ -17,6 +18,8 @@ import {
 } from "@tanstack/react-table";
 
 const Tables = ({ data, columns, setSelectedRow }) => {
+  const showFilter = useSelector((state: any) => state.filter.showFilter);
+
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
     []
   );
@@ -69,12 +72,16 @@ const Tables = ({ data, columns, setSelectedRow }) => {
       <hr className="my-2 border-none" />
       <div className="table-data">
         <table className="table-auto">
-          <thead className="text-left">
+          <thead className="text-left border-t border-b">
             {table.getHeaderGroups().map((headerGroup) => (
               <tr key={headerGroup.id}>
                 {headerGroup.headers.map((header) => {
                   return (
-                    <th key={header.id} colSpan={header.colSpan}>
+                    <th
+                      key={header.id}
+                      colSpan={header.colSpan}
+                      className="py-2 font-bold"
+                    >
                       {header.isPlaceholder ? null : (
                         <>
                           <div
@@ -95,9 +102,11 @@ const Tables = ({ data, columns, setSelectedRow }) => {
                             }[header.column.getIsSorted() as string] ?? null}
                           </div>
                           {header.column.getCanFilter() ? (
-                            <div>
-                              <Filter column={header.column} table={table} />
-                            </div>
+                            <>
+                              {showFilter ? (
+                                <Filter column={header.column} table={table} />
+                              ) : null}
+                            </>
                           ) : null}
                         </>
                       )}
@@ -168,8 +177,8 @@ const Tables = ({ data, columns, setSelectedRow }) => {
           </span>
         </div>
         <div className="flex justify-end items-center gap-2">
-          <span className="flex items-center gap-1">
-            Go to page:
+          <span className="flex items-center gap-2">
+            <span>Go to page:</span>
             <input
               type="number"
               defaultValue={table.getState().pagination.pageIndex + 1}
@@ -177,11 +186,11 @@ const Tables = ({ data, columns, setSelectedRow }) => {
                 const page = e.target.value ? Number(e.target.value) - 1 : 0;
                 table.setPageIndex(page);
               }}
-              className="border p-1 rounded w-16"
+              className="border p-1 rounded w-16 text-gray-700"
             />
           </span>
           <select
-            className="border py-1 px-2 rounded w-28"
+            className="border py-1 px-2 rounded w-28 text-gray-700"
             value={table.getState().pagination.pageSize}
             onChange={(e) => {
               table.setPageSize(Number(e.target.value));
