@@ -2,6 +2,7 @@
 import AuthenticateUser from "./AuthenticateUser";
 import { useQuery } from "@apollo/client";
 import { VALIDATE_USER } from "../../schema";
+import ComponentSpinner from "../spinner/ComponentSpinner";
 
 const ValidateUser = ({
   email,
@@ -20,7 +21,7 @@ const ValidateUser = ({
     },
   });
 
-  if (loading) return "Loading...";
+  if (loading) return <ComponentSpinner />;
 
   if (error) {
     console.error(`Error: ${error.message}`);

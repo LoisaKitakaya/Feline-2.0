@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import Modal from "../components/modal/Modal";
+import AllAccounts from "../components/account/AllAccounts";
+import NewAccount from "../components/account/NewAccount";
 
 const Accounts = () => {
-
   const [isOpen, setIsOpen] = useState(false);
 
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
@@ -38,6 +39,7 @@ const Accounts = () => {
         </p>
       </div>
       {/* Accounts */}
+      <AllAccounts />
       {/* Accounts */}
 
       {/* modal */}
@@ -45,7 +47,7 @@ const Accounts = () => {
         visible={isOpen}
         setVisible={setIsOpen}
         title={"Create new account"}
-        element={"element"}
+        element={<NewAccount />}
       />
       {/* modal */}
     </>

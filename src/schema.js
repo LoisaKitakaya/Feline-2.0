@@ -239,8 +239,6 @@ export const GET_ALL_PRODUCTS = gql`
       reorder_level
       reorder_quantity
       supplier_name
-      supplier_phone_number
-      supplier_email
       profit_generated
       created_at
       updated_at
@@ -301,7 +299,7 @@ export const CREATE_ACCOUNT = gql`
   mutation (
     $account_name: String!
     $account_type: String!
-    $account_balance: Float!
+    $account_balance: String!
     $currency_code: String!
   ) {
     createAccount(
@@ -320,7 +318,7 @@ export const UPDATE_ACCOUNT = gql`
     $id: ID!
     $account_name: String!
     $account_type: String!
-    $account_balance: Float!
+    $account_balance: String!
     $currency_code: String!
   ) {
     updateAccount(
@@ -346,7 +344,7 @@ export const CREATE_BUDGET = gql`
     $account_id: ID!
     $budget_name: String!
     $budget_description: String!
-    $budget_amount: Float!
+    $budget_amount: String!
     $category: String!
     $sub_category: String!
   ) {
@@ -368,7 +366,7 @@ export const UPDATE_BUDGET = gql`
     $id: ID!
     $budget_name: String!
     $budget_description: String!
-    $budget_amount: Float!
+    $budget_amount: String!
     $category: String!
     $sub_category: String!
   ) {
@@ -396,7 +394,7 @@ export const CREATE_TARGET = gql`
     $account_id: ID!
     $target_name: String!
     $target_description: String!
-    $target_amount: Float!
+    $target_amount: String!
     $category: String!
     $sub_category: String!
   ) {
@@ -418,7 +416,7 @@ export const UPDATE_TARGET = gql`
     $id: ID!
     $target_name: String!
     $target_description: String!
-    $target_amount: Float!
+    $target_amount: String!
     $category: String!
     $sub_category: String!
   ) {
@@ -445,7 +443,7 @@ export const CREATE_TRANSACTION = gql`
   mutation (
     $account_id: ID!
     $transaction_type: String!
-    $transaction_amount: Float!
+    $transaction_amount: String!
     $transaction_date: String!
     $description: String!
     $category: String!
@@ -470,7 +468,7 @@ export const UPDATE_TRANSACTION = gql`
     $id: ID!
     $account_id: ID!
     $transaction_type: String!
-    $transaction_amount: Float!
+    $transaction_amount: String!
     $transaction_date: String!
     $description: String!
     $category: String!
@@ -504,14 +502,11 @@ export const CREATE_PRODUCT = gql`
     $description: String!
     $category: String!
     $sub_category: String!
-    $buying_price: Float!
-    $selling_price: Float!
-    $current_stock_level: Int!
-    $units_sold: Int!
-    $reorder_level: Int!
+    $buying_price: String!
+    $selling_price: String!
+    $current_stock_level: String!
+    $units_sold: String!
     $supplier_name: String!
-    $supplier_phone_number: String!
-    $supplier_email: String!
   ) {
     createProduct(
       account_id: $account_id
@@ -523,10 +518,7 @@ export const CREATE_PRODUCT = gql`
       selling_price: $selling_price
       current_stock_level: $current_stock_level
       units_sold: $units_sold
-      reorder_level: $reorder_level
       supplier_name: $supplier_name
-      supplier_phone_number: $supplier_phone_number
-      supplier_email: $supplier_email
     ) {
       id
     }
@@ -540,11 +532,11 @@ export const UPDATE_PRODUCT = gql`
     $description: String!
     $category: String!
     $sub_category: String!
-    $buying_price: Float!
-    $selling_price: Float!
-    $current_stock_level: Int!
-    $units_sold: Int!
-    $reorder_level: Int!
+    $buying_price: String!
+    $selling_price: String!
+    $current_stock_level: String!
+    $units_sold: String!
+    $reorder_level: String!
     $supplier_name: String!
     $supplier_phone_number: String!
     $supplier_email: String!

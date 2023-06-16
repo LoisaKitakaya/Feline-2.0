@@ -1,18 +1,18 @@
 /* eslint-disable react/prop-types */
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 
 import "./modal.css";
 
 const Modal = ({ visible, setVisible, title, element }) => {
+  const dialogRef = useRef(null);
+
   const openModal = () => {
-    const dialog = document.getElementById("modal-dialog");
-    dialog.showModal();
+    dialogRef.current.showModal();
     setVisible(true);
   };
 
   const closeModal = () => {
-    const dialog = document.getElementById("modal-dialog");
-    dialog.close();
+    dialogRef.current.close();
     setVisible(false);
   };
 
@@ -28,18 +28,20 @@ const Modal = ({ visible, setVisible, title, element }) => {
   return (
     <dialog
       className="rounded border"
-      id="modal-dialog"
+      ref={dialogRef}
       style={{
         width: "30%",
       }}
     >
-      <div className="flex justify-between items-center mb-2">
-        <p className="text-lg font-semibold">{title}</p>
-        <button onClick={() => closeModal()}>
-          <i className="bi bi-x-lg"></i>
-        </button>
+      <div className="sticky top-0 dialog-header pt-4">
+        <div className="flex justify-between items-center mb-2">
+          <p className="text-lg font-semibold">{title}</p>
+          <button onClick={() => closeModal()}>
+            <i className="bi bi-x-lg"></i>
+          </button>
+        </div>
+        <hr className="mb-4" />
       </div>
-      <hr className="mb-4" />
       {element}
     </dialog>
   );

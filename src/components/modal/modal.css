@@ -15,4 +15,14 @@
 dialog {
   background: var(--background) !important;
   color: var(--foreground) !important;
+  padding-top: 0;
+}
+
+dialog::-webkit-scrollbar {
+  display: none;
+}
+
+.dialog-header {
+  background: var(--background) !important;
+  z-index: 10;
 }

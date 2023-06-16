@@ -1,7 +1,9 @@
+/* eslint-disable react/prop-types */
 import { useQuery } from "@apollo/client";
 import { TOKEN_AUTH } from "../../schema";
 import { useDispatch } from "react-redux";
 import { signIn } from "../../redux/auth";
+import ComponentSpinner from "../spinner/ComponentSpinner";
 
 const AuthenticateUser = ({ signinPassword, signinUsername }) => {
   const dispatch = useDispatch();
@@ -18,7 +20,7 @@ const AuthenticateUser = ({ signinPassword, signinUsername }) => {
     window.location.replace(document.referrer);
   }
 
-  if (loading) return "Loading...";
+  if (loading) return <ComponentSpinner />;
 
   if (error) {
     console.error(`Error: ${error.message}`);
