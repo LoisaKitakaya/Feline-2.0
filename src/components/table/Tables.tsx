@@ -15,7 +15,6 @@ import {
   getSortedRowModel,
   flexRender,
 } from "@tanstack/react-table";
-import IndeterminateCheckbox from "./CheckBox";
 
 const Tables = ({ data, columns, setSelectedRow }) => {
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(

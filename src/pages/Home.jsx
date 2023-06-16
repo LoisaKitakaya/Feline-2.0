@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 const Home = () => {
   return (
     <>
@@ -7,14 +9,17 @@ const Home = () => {
         </h1>
       </div>
       <div className="flex justify-center items-center">
-        <a href="/accounts" className="bg-emerald-400 hover:bg-emerald-500 rounded-md">
+        <Link
+          to="/accounts"
+          className="bg-emerald-400 hover:bg-emerald-500 rounded-md"
+        >
           <button
             className="px-2 py-1 cursor-pointer border rounded-md flex justify-between items-center"
             type="button"
           >
             Go to Dashboard
           </button>
-        </a>
+        </Link>
       </div>
     </>
   );
