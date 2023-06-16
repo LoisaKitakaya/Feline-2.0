@@ -15,8 +15,9 @@ import {
   getSortedRowModel,
   flexRender,
 } from "@tanstack/react-table";
+import IndeterminateCheckbox from "./CheckBox";
 
-const Tables = ({ data, columns }) => {
+const Tables = ({ data, columns, setSelectedRow }) => {
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
     []
   );
@@ -35,7 +36,6 @@ const Tables = ({ data, columns }) => {
     },
     onColumnFiltersChange: setColumnFilters,
     onGlobalFilterChange: setGlobalFilter,
-    globalFilterFn: fuzzyFilter,
     getCoreRowModel: getCoreRowModel(),
     getFilteredRowModel: getFilteredRowModel(),
     getSortedRowModel: getSortedRowModel(),
@@ -43,10 +43,19 @@ const Tables = ({ data, columns }) => {
     getFacetedRowModel: getFacetedRowModel(),
     getFacetedUniqueValues: getFacetedUniqueValues(),
     getFacetedMinMaxValues: getFacetedMinMaxValues(),
+    globalFilterFn: fuzzyFilter,
+    enableRowSelection: true,
     debugTable: true,
     debugHeaders: true,
     debugColumns: false,
   });
+
+  if (table.getSelectedRowModel().flatRows.length > 0) {
+    const itemId = table
+      .getSelectedRowModel()
+      .flatRows.map((item) => item.original.id);
+    setSelectedRow(`${itemId}`);
+  }
 
   return (
     <>
@@ -124,34 +133,34 @@ const Tables = ({ data, columns }) => {
       <div className="flex items-center justify-between">
         <div className="flex justify-start items-center gap-2">
           <button
-            className="border rounded py-2 px-4"
+            className="border rounded py-1 px-2"
             onClick={() => table.setPageIndex(0)}
             disabled={!table.getCanPreviousPage()}
           >
             {"<<"}
           </button>
           <button
-            className="border rounded py-2 px-4"
+            className="border rounded py-1 px-2"
             onClick={() => table.previousPage()}
             disabled={!table.getCanPreviousPage()}
           >
             {"<"}
           </button>
           <button
-            className="border rounded py-2 px-4"
+            className="border rounded py-1 px-2"
             onClick={() => table.nextPage()}
             disabled={!table.getCanNextPage()}
           >
             {">"}
           </button>
           <button
-            className="border rounded py-2 px-4"
+            className="border rounded py-1 px-2"
             onClick={() => table.setPageIndex(table.getPageCount() - 1)}
             disabled={!table.getCanNextPage()}
           >
             {">>"}
           </button>
-          <span className="flex items-center gap-1">
+          <span className="flex items-center gap-2">
             <div>Page</div>
             <strong>
               {table.getState().pagination.pageIndex + 1} of{" "}
@@ -169,11 +178,11 @@ const Tables = ({ data, columns }) => {
                 const page = e.target.value ? Number(e.target.value) - 1 : 0;
                 table.setPageIndex(page);
               }}
-              className="border py-2 px-1 rounded w-16"
+              className="border p-1 rounded w-16"
             />
           </span>
           <select
-            className="border py-2 px-4 rounded w-28"
+            className="border py-1 px-2 rounded w-28"
             value={table.getState().pagination.pageSize}
             onChange={(e) => {
               table.setPageSize(Number(e.target.value));

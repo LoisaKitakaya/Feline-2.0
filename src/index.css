@@ -73,3 +73,11 @@ body {
 .table-data {
   overflow-x: auto !important;
 }
+
+dialog::backdrop {
+  backdrop-filter: blur(10px) !important;
+}
+
+dialog {
+  max-height: 80% !important;
+}

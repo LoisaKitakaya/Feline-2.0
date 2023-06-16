@@ -5,18 +5,87 @@ import { useMemo } from "react";
 import Tables from "../table/Tables";
 import { FilterFn, ColumnDef } from "@tanstack/react-table";
 import { RankingInfo } from "@tanstack/match-sorter-utils";
+import IndeterminateCheckbox from "../table/CheckBox";
 
-declare module '@tanstack/table-core' {
+declare module "@tanstack/table-core" {
   interface FilterFns {
-    fuzzy: FilterFn<unknown>
+    fuzzy: FilterFn<unknown>;
   }
   interface FilterMeta {
-    itemRank: RankingInfo
+    itemRank: RankingInfo;
   }
 }
 
-const TransactionTable = ({ tableData }) => {
-  const columns = React.useMemo<ColumnDef<any>[]>(() => [], []);
+const TransactionTable = ({ tableData, setSelectedRow }) => {
+  const columns = React.useMemo<ColumnDef<any>[]>(
+    () => [
+      {
+        id: "select",
+        header: ({ table }) => (
+          <IndeterminateCheckbox
+            {...{
+              checked: table.getIsAllRowsSelected(),
+              indeterminate: table.getIsSomeRowsSelected(),
+              onChange: table.getToggleAllRowsSelectedHandler(),
+            }}
+          />
+        ),
+        cell: ({ row }) => (
+          <div className="px-1">
+            <IndeterminateCheckbox
+              {...{
+                checked: row.getIsSelected(),
+                disabled: !row.getCanSelect(),
+                indeterminate: row.getIsSomeSelected(),
+                onChange: row.getToggleSelectedHandler(),
+              }}
+            />
+          </div>
+        ),
+      },
+      {
+        header: "Product name",
+        accessorKey: "transaction_type",
+        footer: (props) => props.column.id,
+      },
+      {
+        header: "Product description",
+        accessorKey: "transaction_amount",
+        footer: (props) => props.column.id,
+      },
+      {
+        header: "Category",
+        accessorKey: "currency_code",
+        footer: (props) => props.column.id,
+      },
+      {
+        header: "Sub-category",
+        accessorKey: "description",
+        footer: (props) => props.column.id,
+      },
+      {
+        header: "Buying price",
+        accessorKey: "transaction_date",
+        footer: (props) => props.column.id,
+      },
+      {
+        header: "Selling price",
+        accessorKey: "transaction_sub_category",
+        footer: (props) => props.column.id,
+      },
+      {
+        header: "Current stock level",
+        accessorKey: "created_at",
+        footer: (props) => props.column.id,
+      },
+      {
+        header: "Units sold",
+        accessorKey: "updated_at",
+        footer: (props) => props.column.id,
+      },
+    ],
+    []
+  );
 
   const data = useMemo(
     () =>
@@ -42,7 +111,7 @@ const TransactionTable = ({ tableData }) => {
   return (
     <>
       {tableData.length !== 0 ? (
-        <Tables data={data} columns={columns} />
+        <Tables data={data} columns={columns} setSelectedRow={setSelectedRow} />
       ) : (
         <>
           <div className="my-20 text-center">

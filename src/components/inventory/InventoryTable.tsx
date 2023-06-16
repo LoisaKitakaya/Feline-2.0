@@ -5,6 +5,7 @@ import { useMemo } from "react";
 import Tables from "../table/Tables";
 import { FilterFn, ColumnDef } from "@tanstack/react-table";
 import { RankingInfo } from "@tanstack/match-sorter-utils";
+import IndeterminateCheckbox from "../table/CheckBox";
 
 declare module "@tanstack/table-core" {
   interface FilterFns {
@@ -15,9 +16,33 @@ declare module "@tanstack/table-core" {
   }
 }
 
-const InventoryTable = ({ tableData }) => {
+const InventoryTable = ({ tableData, setSelectedRow }) => {
   const columns = React.useMemo<ColumnDef<any>[]>(
     () => [
+      {
+        id: "select",
+        header: ({ table }) => (
+          <IndeterminateCheckbox
+            {...{
+              checked: table.getIsAllRowsSelected(),
+              indeterminate: table.getIsSomeRowsSelected(),
+              onChange: table.getToggleAllRowsSelectedHandler(),
+            }}
+          />
+        ),
+        cell: ({ row }) => (
+          <div className="px-1">
+            <IndeterminateCheckbox
+              {...{
+                checked: row.getIsSelected(),
+                disabled: !row.getCanSelect(),
+                indeterminate: row.getIsSomeSelected(),
+                onChange: row.getToggleSelectedHandler(),
+              }}
+            />
+          </div>
+        ),
+      },
       {
         header: "Product name",
         accessorKey: "name",
@@ -107,7 +132,7 @@ const InventoryTable = ({ tableData }) => {
   return (
     <>
       {tableData.length !== 0 ? (
-        <Tables data={data} columns={columns} />
+        <Tables data={data} columns={columns} setSelectedRow={setSelectedRow} />
       ) : (
         <>
           <div className="my-20 text-center">

@@ -7,10 +7,7 @@ import {
   GET_ALL_ACCOUNT_TRANSACTIONS,
   GET_ACCOUNT,
 } from "../../schema";
-import {
-  setNewNotification,
-  clearOldNotification,
-} from "../../redux/toast";
+import { setNewNotification, clearOldNotification } from "../../redux/toast";
 
 const DeleteTransaction = ({ account_id, id, confirmDelete }) => {
   const dispatch = useDispatch();
@@ -35,7 +32,6 @@ const DeleteTransaction = ({ account_id, id, confirmDelete }) => {
         message: "Transaction deleted successfully",
       })
     );
-    confirmDelete(false);
   }
 
   if (error) {
@@ -59,6 +55,8 @@ const DeleteTransaction = ({ account_id, id, confirmDelete }) => {
         });
 
         e.target.reset();
+
+        confirmDelete(false);
       }}
     >
       <div className="mb-4">

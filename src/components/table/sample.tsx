@@ -1,83 +1,53 @@
-import React from 'react'
+import React, { HTMLAttributes, HTMLProps } from 'react'
 import ReactDOM from 'react-dom/client'
 
 import './index.css'
 
-import {
-  Column,
-  Table,
-  useReactTable,
-  ColumnFiltersState,
-  getCoreRowModel,
-  getFilteredRowModel,
-  getFacetedRowModel,
-  getFacetedUniqueValues,
-  getFacetedMinMaxValues,
-  getPaginationRowModel,
-  sortingFns,
-  getSortedRowModel,
-  FilterFn,
-  SortingFn,
-  ColumnDef,
-  flexRender,
-  FilterFns,
-} from '@tanstack/react-table'
-
-import {
-  RankingInfo,
-  rankItem,
-  compareItems,
-} from '@tanstack/match-sorter-utils'
-
 import { makeData, Person } from './makeData'
 
-declare module '@tanstack/table-core' {
-  interface FilterFns {
-    fuzzy: FilterFn<unknown>
-  }
-  interface FilterMeta {
-    itemRank: RankingInfo
-  }
-}
-
-const fuzzyFilter: FilterFn<any> = (row, columnId, value, addMeta) => {
-  // Rank the item
-  const itemRank = rankItem(row.getValue(columnId), value)
-
-  // Store the itemRank info
-  addMeta({
-    itemRank,
-  })
-
-  // Return if the item should be filtered in/out
-  return itemRank.passed
-}
-
-const fuzzySort: SortingFn<any> = (rowA, rowB, columnId) => {
-  let dir = 0
-
-  // Only sort by rank if the column has ranking information
-  if (rowA.columnFiltersMeta[columnId]) {
-    dir = compareItems(
-      rowA.columnFiltersMeta[columnId]?.itemRank!,
-      rowB.columnFiltersMeta[columnId]?.itemRank!
-    )
-  }
-
-  // Provide an alphanumeric fallback for when the item ranks are equal
-  return dir === 0 ? sortingFns.alphanumeric(rowA, rowB, columnId) : dir
-}
+import {
+  Column,
+  ColumnDef,
+  flexRender,
+  getCoreRowModel,
+  getFilteredRowModel,
+  getPaginationRowModel,
+  Table,
+  useReactTable,
+} from '@tanstack/react-table'
 
 function App() {
   const rerender = React.useReducer(() => ({}), {})[1]
 
-  const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
-    []
-  )
+  const [rowSelection, setRowSelection] = React.useState({})
   const [globalFilter, setGlobalFilter] = React.useState('')
 
-  const columns = React.useMemo<ColumnDef<Person, any>[]>(
+  const columns = React.useMemo<ColumnDef<Person>[]>(
     () => [
+      {
+        id: 'select',
+        header: ({ table }) => (
+          <IndeterminateCheckbox
+            {...{
+              checked: table.getIsAllRowsSelected(),
+              indeterminate: table.getIsSomeRowsSelected(),
+              onChange: table.getToggleAllRowsSelectedHandler(),
+            }}
+          />
+        ),
+        cell: ({ row }) => (
+          <div className="px-1">
+            <IndeterminateCheckbox
+              {...{
+                checked: row.getIsSelected(),
+                disabled: !row.getCanSelect(),
+                indeterminate: row.getIsSomeSelected(),
+                onChange: row.getToggleSelectedHandler(),
+              }}
+            />
+          </div>
+        ),
+      },
       {
         header: 'Name',
         footer: props => props.column.id,
@@ -93,15 +63,6 @@ function App() {
             cell: info => info.getValue(),
             header: () => <span>Last Name</span>,
             footer: props => props.column.id,
-          },
-          {
-            accessorFn: row => `${row.firstName} ${row.lastName}`,
-            id: 'fullName',
-            header: 'Full Name',
-            cell: info => info.getValue(),
-            footer: props => props.column.id,
-            filterFn: 'fuzzy',
-            sortingFn: fuzzySort,
           },
         ],
       },
@@ -140,48 +101,29 @@ function App() {
     []
   )
 
-  const [data, setData] = React.useState<Person[]>(() => makeData(50000))
-  const refreshData = () => setData(old => makeData(50000))
+  const [data, setData] = React.useState(() => makeData(100000))
+  const refreshData = () => setData(() => makeData(100000))
 
   const table = useReactTable({
     data,
     columns,
-    filterFns: {
-      fuzzy: fuzzyFilter,
-    },
     state: {
-      columnFilters,
-      globalFilter,
+      rowSelection,
     },
-    onColumnFiltersChange: setColumnFilters,
-    onGlobalFilterChange: setGlobalFilter,
-    globalFilterFn: fuzzyFilter,
+    enableRowSelection: true,
+    onRowSelectionChange: setRowSelection,
     getCoreRowModel: getCoreRowModel(),
     getFilteredRowModel: getFilteredRowModel(),
-    getSortedRowModel: getSortedRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
-    getFacetedRowModel: getFacetedRowModel(),
-    getFacetedUniqueValues: getFacetedUniqueValues(),
-    getFacetedMinMaxValues: getFacetedMinMaxValues(),
     debugTable: true,
-    debugHeaders: true,
-    debugColumns: false,
   })
-
-  React.useEffect(() => {
-    if (table.getState().columnFilters[0]?.id === 'fullName') {
-      if (table.getState().sorting[0]?.id !== 'fullName') {
-        table.setSorting([{ id: 'fullName', desc: false }])
-      }
-    }
-  }, [table.getState().columnFilters[0]?.id])
 
   return (
     <div className="p-2">
       <div>
-        <DebouncedInput
+        <input
           value={globalFilter ?? ''}
-          onChange={value => setGlobalFilter(String(value))}
+          onChange={e => setGlobalFilter(e.target.value)}
           className="p-2 font-lg shadow border border-block"
           placeholder="Search all columns..."
         />
@@ -196,23 +138,10 @@ function App() {
                   <th key={header.id} colSpan={header.colSpan}>
                     {header.isPlaceholder ? null : (
                       <>
-                        <div
-                          {...{
-                            className: header.column.getCanSort()
-                              ? 'cursor-pointer select-none'
-                              : '',
-                            onClick: header.column.getToggleSortingHandler(),
-                          }}
-                        >
-                          {flexRender(
-                            header.column.columnDef.header,
-                            header.getContext()
-                          )}
-                          {{
-                            asc: ' 🔼',
-                            desc: ' 🔽',
-                          }[header.column.getIsSorted() as string] ?? null}
-                        </div>
+                        {flexRender(
+                          header.column.columnDef.header,
+                          header.getContext()
+                        )}
                         {header.column.getCanFilter() ? (
                           <div>
                             <Filter column={header.column} table={table} />
@@ -244,6 +173,20 @@ function App() {
             )
           })}
         </tbody>
+        <tfoot>
+          <tr>
+            <td className="p-1">
+              <IndeterminateCheckbox
+                {...{
+                  checked: table.getIsAllPageRowsSelected(),
+                  indeterminate: table.getIsSomePageRowsSelected(),
+                  onChange: table.getToggleAllPageRowsSelectedHandler(),
+                }}
+              />
+            </td>
+            <td colSpan={20}>Page Rows ({table.getRowModel().rows.length})</td>
+          </tr>
+        </tfoot>
       </table>
       <div className="h-2" />
       <div className="flex items-center gap-2">
@@ -307,14 +250,47 @@ function App() {
           ))}
         </select>
       </div>
-      <div>{table.getPrePaginationRowModel().rows.length} Rows</div>
+      <br />
       <div>
-        <button onClick={() => rerender()}>Force Rerender</button>
+        {Object.keys(rowSelection).length} of{' '}
+        {table.getPreFilteredRowModel().rows.length} Total Rows Selected
+      </div>
+      <hr />
+      <br />
+      <div>
+        <button className="border rounded p-2 mb-2" onClick={() => rerender()}>
+          Force Rerender
+        </button>
       </div>
       <div>
-        <button onClick={() => refreshData()}>Refresh Data</button>
+        <button
+          className="border rounded p-2 mb-2"
+          onClick={() => refreshData()}
+        >
+          Refresh Data
+        </button>
       </div>
-      <pre>{JSON.stringify(table.getState(), null, 2)}</pre>
+      <div>
+        <button
+          className="border rounded p-2 mb-2"
+          onClick={() => console.info('rowSelection', rowSelection)}
+        >
+          Log `rowSelection` state
+        </button>
+      </div>
+      <div>
+        <button
+          className="border rounded p-2 mb-2"
+          onClick={() =>
+            console.info(
+              'table.getSelectedRowModel().flatRows',
+              table.getSelectedRowModel().flatRows
+            )
+          }
+        >
+          Log table.getSelectedRowModel().flatRows
+        </button>
+      </div>
     </div>
   )
 }
@@ -323,106 +299,65 @@ function Filter({
   column,
   table,
 }: {
-  column: Column<any, unknown>
+  column: Column<any, any>
   table: Table<any>
 }) {
   const firstValue = table
     .getPreFilteredRowModel()
     .flatRows[0]?.getValue(column.id)
 
-  const columnFilterValue = column.getFilterValue()
-
-  const sortedUniqueValues = React.useMemo(
-    () =>
-      typeof firstValue === 'number'
-        ? []
-        : Array.from(column.getFacetedUniqueValues().keys()).sort(),
-    [column.getFacetedUniqueValues()]
-  )
-
   return typeof firstValue === 'number' ? (
-    <div>
-      <div className="flex space-x-2">
-        <DebouncedInput
-          type="number"
-          min={Number(column.getFacetedMinMaxValues()?.[0] ?? '')}
-          max={Number(column.getFacetedMinMaxValues()?.[1] ?? '')}
-          value={(columnFilterValue as [number, number])?.[0] ?? ''}
-          onChange={value =>
-            column.setFilterValue((old: [number, number]) => [value, old?.[1]])
-          }
-          placeholder={`Min ${
-            column.getFacetedMinMaxValues()?.[0]
-              ? `(${column.getFacetedMinMaxValues()?.[0]})`
-              : ''
-          }`}
-          className="w-24 border shadow rounded"
-        />
-        <DebouncedInput
-          type="number"
-          min={Number(column.getFacetedMinMaxValues()?.[0] ?? '')}
-          max={Number(column.getFacetedMinMaxValues()?.[1] ?? '')}
-          value={(columnFilterValue as [number, number])?.[1] ?? ''}
-          onChange={value =>
-            column.setFilterValue((old: [number, number]) => [old?.[0], value])
-          }
-          placeholder={`Max ${
-            column.getFacetedMinMaxValues()?.[1]
-              ? `(${column.getFacetedMinMaxValues()?.[1]})`
-              : ''
-          }`}
-          className="w-24 border shadow rounded"
-        />
-      </div>
-      <div className="h-1" />
+    <div className="flex space-x-2">
+      <input
+        type="number"
+        value={((column.getFilterValue() as any)?.[0] ?? '') as string}
+        onChange={e =>
+          column.setFilterValue((old: any) => [e.target.value, old?.[1]])
+        }
+        placeholder={`Min`}
+        className="w-24 border shadow rounded"
+      />
+      <input
+        type="number"
+        value={((column.getFilterValue() as any)?.[1] ?? '') as string}
+        onChange={e =>
+          column.setFilterValue((old: any) => [old?.[0], e.target.value])
+        }
+        placeholder={`Max`}
+        className="w-24 border shadow rounded"
+      />
     </div>
   ) : (
-    <>
-      <datalist id={column.id + 'list'}>
-        {sortedUniqueValues.slice(0, 5000).map((value: any) => (
-          <option value={value} key={value} />
-        ))}
-      </datalist>
-      <DebouncedInput
-        type="text"
-        value={(columnFilterValue ?? '') as string}
-        onChange={value => column.setFilterValue(value)}
-        placeholder={`Search... (${column.getFacetedUniqueValues().size})`}
-        className="w-36 border shadow rounded"
-        list={column.id + 'list'}
-      />
-      <div className="h-1" />
-    </>
+    <input
+      type="text"
+      value={(column.getFilterValue() ?? '') as string}
+      onChange={e => column.setFilterValue(e.target.value)}
+      placeholder={`Search...`}
+      className="w-36 border shadow rounded"
+    />
   )
 }
 
-// A debounced input react component
-function DebouncedInput({
-  value: initialValue,
-  onChange,
-  debounce = 500,
-  ...props
-}: {
-  value: string | number
-  onChange: (value: string | number) => void
-  debounce?: number
-} & Omit<React.InputHTMLAttributes<HTMLInputElement>, 'onChange'>) {
-  const [value, setValue] = React.useState(initialValue)
+function IndeterminateCheckbox({
+  indeterminate,
+  className = '',
+  ...rest
+}: { indeterminate?: boolean } & HTMLProps<HTMLInputElement>) {
+  const ref = React.useRef<HTMLInputElement>(null!)
 
   React.useEffect(() => {
-    setValue(initialValue)
-  }, [initialValue])
-
-  React.useEffect(() => {
-    const timeout = setTimeout(() => {
-      onChange(value)
-    }, debounce)
-
-    return () => clearTimeout(timeout)
-  }, [value])
+    if (typeof indeterminate === 'boolean') {
+      ref.current.indeterminate = !rest.checked && indeterminate
+    }
+  }, [ref, indeterminate])
 
   return (
-    <input {...props} value={value} onChange={e => setValue(e.target.value)} />
+    <input
+      type="checkbox"
+      ref={ref}
+      className={className + ' cursor-pointer'}
+      {...rest}
+    />
   )
 }
 

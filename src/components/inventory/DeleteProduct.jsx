@@ -3,10 +3,7 @@ import { useDispatch } from "react-redux";
 import { useMutation } from "@apollo/client";
 import ButtonSpinner from "../spinner/ButtonSpinner";
 import { DELETE_PRODUCT, GET_ALL_PRODUCTS } from "../../schema";
-import {
-  setNewNotification,
-  clearOldNotification,
-} from "../../redux/toast";
+import { setNewNotification, clearOldNotification } from "../../redux/toast";
 
 const DeleteProduct = ({ account_id, id, confirmDelete }) => {
   const dispatch = useDispatch();
@@ -30,7 +27,6 @@ const DeleteProduct = ({ account_id, id, confirmDelete }) => {
         message: "Product deleted successfully",
       })
     );
-    confirmDelete(false);
   }
 
   if (error) {
@@ -53,6 +49,8 @@ const DeleteProduct = ({ account_id, id, confirmDelete }) => {
         });
 
         e.target.reset();
+
+        confirmDelete(false);
       }}
     >
       <div className="mb-4">

@@ -40,14 +40,22 @@ const Navbar = () => {
         />
         <ul className="text-center">
           <li className="text-xl my-6 hover:text-emerald-600 cursor-pointer px-8">
-            <Link to="/accounts" className="flex justify-between items-center">
+            <Link
+              to="/accounts"
+              className="flex justify-between items-center"
+              onClick={() => setIsOpen(false)}
+            >
               <i className="bi bi-safe flex justify-start ml-8"></i>
               <span>-</span>
               <span className="flex justify-end mr-8">Accounts</span>
             </Link>
           </li>
           <li className="text-xl my-6 hover:text-emerald-600 cursor-pointer px-8">
-            <Link to="/invoice" className="flex justify-between items-center">
+            <Link
+              to="/invoice"
+              className="flex justify-between items-center"
+              onClick={() => setIsOpen(false)}
+            >
               <i className="bi bi-receipt flex justify-start ml-8"></i>
               <span>-</span>
               <span className="flex justify-end mr-8">Invoice</span>
@@ -55,28 +63,44 @@ const Navbar = () => {
           </li>
 
           <li className="text-xl my-6 hover:text-emerald-600 cursor-pointer px-8">
-            <Link to="/target" className="flex justify-between items-center">
+            <Link
+              to="/target"
+              className="flex justify-between items-center"
+              onClick={() => setIsOpen(false)}
+            >
               <i className="bi bi-graph-up-arrow flex justify-start ml-8"></i>
               <span>-</span>
               <span className="flex justify-end mr-8">Target</span>
             </Link>
           </li>
           <li className="text-xl my-6 hover:text-emerald-600 cursor-pointer px-8">
-            <Link to="/budget" className="flex justify-between items-center">
+            <Link
+              to="/budget"
+              className="flex justify-between items-center"
+              onClick={() => setIsOpen(false)}
+            >
               <i className="bi bi-piggy-bank flex justify-start ml-8"></i>
               <span>-</span>
               <span className="flex justify-end mr-8">Budget</span>
             </Link>
           </li>
           <li className="text-xl my-6 hover:text-emerald-600 cursor-pointer px-8">
-            <Link to="/security" className="flex justify-between items-center">
+            <Link
+              to="/security"
+              className="flex justify-between items-center"
+              onClick={() => setIsOpen(false)}
+            >
               <i className="bi bi-shield-lock flex justify-start ml-8"></i>
               <span>-</span>
               <span className="flex justify-end mr-8">Security</span>
             </Link>
           </li>
           <li className="text-xl my-6 hover:text-emerald-600 cursor-pointer px-8">
-            <Link to="/assistant" className="flex justify-between items-center">
+            <Link
+              to="/assistant"
+              className="flex justify-between items-center"
+              onClick={() => setIsOpen(false)}
+            >
               <i className="bi bi-robot flex justify-start ml-8"></i>
               <span>-</span>
               <span className="flex justify-end mr-8">Assistant</span>
