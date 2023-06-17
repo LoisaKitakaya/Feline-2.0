@@ -57,6 +57,8 @@ const Tables = ({ data, columns, setSelectedRow }) => {
       .getSelectedRowModel()
       .flatRows.map((item) => item.original.id);
     setSelectedRow(`${itemId}`);
+  } else {
+    setSelectedRow(null);
   }
 
   return (

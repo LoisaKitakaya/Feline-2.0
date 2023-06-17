@@ -69,6 +69,7 @@ const Shelf = ({ account_id }) => {
           <button
             className="rounded-md border py-2 px-4"
             onClick={() => setShowUpdate(true)}
+            disabled={!selectedRow}
           >
             <i className="bi bi-pencil"></i> Update Product
           </button>
@@ -76,6 +77,7 @@ const Shelf = ({ account_id }) => {
           <button
             className="rounded-md border py-2 px-4"
             onClick={() => setConfirmDelete(true)}
+            disabled={!selectedRow}
           >
             <i className="bi bi-trash"></i> Delete Product
           </button>
