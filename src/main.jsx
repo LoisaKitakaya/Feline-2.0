@@ -15,6 +15,7 @@ import App from "./App.jsx";
 import "./index.css";
 import store from "./store.js";
 import "react-tabs/style/react-tabs.css";
+import 'react-accessible-accordion/dist/fancy-example.css';
 
 if (!import.meta.env.VITE_REACT_APP_TOMCAT) {
   console.warn("Missing Backend Endpoint");

@@ -12,6 +12,19 @@ import Transactions from "../transaction/Transactions";
 import ComponentSpinner from "../spinner/ComponentSpinner";
 import { setNewNotification } from "../../redux/toast";
 import Shelf from "../inventory/Shelf";
+import AllCashFlow from "../report/AllCashFlow";
+import AllIncome from "../report/AllIncome";
+import AllBalanceSheet from "../report/AllBalanceSheet";
+import GenerateCashFlowReport from "../report/GenerateCashFlowReport";
+import GenerateIncomeReport from "../report/GenerateIncomeReport";
+import GenerateBalanceSheetReport from "../report/GenerateBalanceSheetReport";
+import {
+  Accordion,
+  AccordionItem,
+  AccordionItemButton,
+  AccordionItemHeading,
+  AccordionItemPanel,
+} from "react-accessible-accordion";
 
 const SingleAccount = () => {
   const { id } = useParams();
@@ -20,6 +33,10 @@ const SingleAccount = () => {
 
   const [showUpdate, setShowUpdate] = useState(false);
   const [confirmDelete, setConfirmDelete] = useState(false);
+
+  const [showNewCashFlow, setShowNewCashFlow] = useState(false);
+  const [showNewIncome, setShowNewIncome] = useState(false);
+  const [showNewBalanceSheet, setShowNewBalanceSheet] = useState(false);
 
   const { loading, data, error } = useQuery(GET_ACCOUNT, {
     variables: { id: id },
@@ -32,6 +49,21 @@ const SingleAccount = () => {
       setNewNotification({ type: "error", message: `${error.message}` })
     );
   }
+
+  const reports = [
+    {
+      heading: "Cash Flow Statements",
+      content: <AllCashFlow account_id={data.getAccount.id} />,
+    },
+    {
+      heading: "Income Statements",
+      content: <AllIncome account_id={data.getAccount.id} />,
+    },
+    {
+      heading: "Balance Sheet Statements",
+      content: <AllBalanceSheet account_id={data.getAccount.id} />,
+    },
+  ];
 
   return (
     <>
@@ -100,10 +132,44 @@ const SingleAccount = () => {
             </TabPanel>
             <TabPanel>
               <br />
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi
-              libero repellendus temporibus autem veritatis asperiores incidunt
-              eum porro culpa quidem, sunt animi natus labore enim veniam
-              reprehenderit inventore amet a!
+              <div className="flex justify-between items-center mb-4">
+                <h4 className="text-xl font-semibold">Your reports</h4>
+                <div className="flex justify-end items-center gap-4">
+                  <button
+                    className="rounded-md border py-2 px-4"
+                    onClick={() => setShowNewCashFlow(true)}
+                  >
+                    <i className="bi bi-plus-lg"></i> New Cash Flow Report
+                  </button>
+                  <button
+                    className="rounded-md border py-2 px-4"
+                    onClick={() => setShowNewIncome(true)}
+                  >
+                    <i className="bi bi-plus-lg"></i> New Income Report
+                  </button>
+                  <button
+                    className="rounded-md border py-2 px-4"
+                    onClick={() => setShowNewBalanceSheet(true)}
+                  >
+                    <i className="bi bi-plus-lg"></i> New Balance Sheet Report
+                  </button>
+                </div>
+              </div>
+              <br />
+              <Accordion className="border-none">
+                {reports.map((report, index) => (
+                  <AccordionItem key={index} className="border-none">
+                    <AccordionItemHeading>
+                      <AccordionItemButton className="acc-btn py-2 px-4 border my-1">
+                        <p className="text-lg font-semibold">
+                          {report.heading}
+                        </p>
+                      </AccordionItemButton>
+                    </AccordionItemHeading>
+                    <AccordionItemPanel>{report.content}</AccordionItemPanel>
+                  </AccordionItem>
+                ))}
+              </Accordion>
             </TabPanel>
           </Tabs>
           {/* tabs */}
@@ -124,6 +190,27 @@ const SingleAccount = () => {
                 id={data.getAccount.id}
                 account_name={data.getAccount.account_name}
               />
+            }
+          />
+
+          <Modal
+            visible={showNewCashFlow}
+            setVisible={setShowNewCashFlow}
+            title={"Generate Cash Flow Report"}
+            element={<GenerateCashFlowReport account_id={data.getAccount.id} />}
+          />
+          <Modal
+            visible={showNewIncome}
+            setVisible={setShowNewIncome}
+            title={"Generate Income Report"}
+            element={<GenerateIncomeReport account_id={data.getAccount.id} />}
+          />
+          <Modal
+            visible={showNewBalanceSheet}
+            setVisible={setShowNewBalanceSheet}
+            title={"Generate Balance Sheet Report"}
+            element={
+              <GenerateBalanceSheetReport account_id={data.getAccount.id} />
             }
           />
           {/* modals */}

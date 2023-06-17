@@ -271,6 +271,85 @@ export const GET_REPORT = gql`
   }
 `;
 
+export const GET_ALL_CASH_FLOW_STATEMENTS = gql`
+  query ($account_id: ID!) {
+    getAllCashFlowStatements(account_id: $account_id) {
+      id
+      uid
+      period_start_date
+      period_end_date
+    }
+  }
+`;
+
+export const GET_CASH_FLOW_STATEMENT = gql`
+  query ($uid: String!) {
+    getCashFlowStatement(uid: $uid) {
+      id
+      uid
+      record {
+        id
+        category
+        item
+        activity
+        amount
+        is_income
+        period_start_date
+        period_end_date
+      }
+    }
+  }
+`;
+
+export const GET_ALL_INCOME_STATEMENTS = gql`
+  query ($account_id: ID!) {
+    getAllIncomeStatements(account_id: $account_id) {
+      id
+      uid
+      period_start_date
+      period_end_date
+    }
+  }
+`;
+
+export const GET_INCOME_STATEMENT = gql`
+  query ($uid: String!) {
+    getIncomeStatement(uid: $uid) {
+      id
+      uid
+      revenue
+      gross_profit
+      operating_expenses
+      net_income
+      period_start_date
+      period_end_date
+    }
+  }
+`;
+
+export const GET_ALL_BALANCE_SHEET_STATEMENTS = gql`
+  query ($account_id: ID!) {
+    getAllBalanceSheetStatements(account_id: $account_id) {
+      id
+      uid
+      created_at
+      updated_at
+    }
+  }
+`;
+
+export const GET_BALANCE_SHEET_STATEMENT = gql`
+  query ($uid: String!) {
+    getBalanceSheetStatement(uid: $uid) {
+      id
+      uid
+      assets
+      liabilities
+      equity
+    }
+  }
+`;
+
 export const GET_PROFILE = gql`
   query getProfile {
     getProfile {
@@ -598,5 +677,68 @@ export const UPDATE_USER = gql`
 export const VERIFY_OTP = gql`
   mutation verifyOTP($otp: String!) {
     verifyOTP(otp: $otp)
+  }
+`;
+
+export const GENERATE_CASH_FLOW_STATEMENT = gql`
+  mutation ($account_id: ID!, $begin_date: String!, $end_date: String!) {
+    generateCashFlowReport(
+      account_id: $account_id
+      begin_date: $begin_date
+      end_date: $end_date
+    ) {
+      id
+      uid
+    }
+  }
+`;
+
+export const DELETE_CASH_FLOW_STATEMENT = gql`
+  mutation ($uid: String!) {
+    deleteCashFlowReport(uid: $uid)
+  }
+`;
+
+export const GENERATE_INCOME_STATEMENT = gql`
+  mutation ($account_id: ID!, $begin_date: String!, $end_date: String!) {
+    generateIncomeReport(
+      account_id: $account_id
+      begin_date: $begin_date
+      end_date: $end_date
+    ) {
+      id
+      uid
+    }
+  }
+`;
+
+export const DELETE_INCOME_STATEMENT = gql`
+  mutation ($uid: String!) {
+    deleteIncomeReport(uid: $uid)
+  }
+`;
+
+export const GENERATE_BALANCE_SHEET_STATEMENT = gql`
+  mutation (
+    $account_id: ID!
+    $assets: [assets!]!
+    $liabilities: [liabilities!]!
+    $equity: [equity!]!
+  ) {
+    generateBalanceSheetReport(
+      account_id: $account_id
+      assets: $assets
+      liabilities: $liabilities
+      equity: $equity
+    ) {
+      id
+      uid
+    }
+  }
+`;
+
+export const DELETE_BALANCE_SHEET_STATEMENT = gql`
+  mutation ($uid: String!) {
+    deleteBalanceSheetReport(uid: $uid)
   }
 `;

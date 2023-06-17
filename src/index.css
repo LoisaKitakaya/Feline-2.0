@@ -94,3 +94,15 @@ dialog::backdrop {
 dialog {
   max-height: 80% !important;
 }
+
+.acc-btn:hover,
+tr:hover {
+  background: var(--backdrop) !important;
+}
+
+thead,
+th,
+.acc-btn {
+  background: var(--background) !important;
+  color: var(--foreground) !important;
+}
