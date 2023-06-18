@@ -6,9 +6,9 @@ import { useDispatch } from "react-redux";
 import UpdateTarget from "./UpdateTarget";
 import DeleteTarget from "./DeleteTarget";
 import { useParams } from "react-router-dom";
-import { GET_TARGET } from "../../assets/schema";
+import { GET_TARGET } from "../../schema";
 import ComponentSpinner from "../spinner/ComponentSpinner";
-import { setNewNotification } from "../../redux/reducers/toast";
+import { setNewNotification } from "../../redux/toast";
 
 const SingleTarget = () => {
   const { id } = useParams();
