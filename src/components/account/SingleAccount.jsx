@@ -179,7 +179,12 @@ const SingleAccount = () => {
             visible={showUpdate}
             setVisible={setShowUpdate}
             title={"Update Account"}
-            element={<UpdateAccount id={data.getAccount.id} />}
+            element={
+              <UpdateAccount
+                id={data.getAccount.id}
+                setShowUpdate={setShowUpdate}
+              />
+            }
           />
           <Modal
             visible={confirmDelete}
@@ -197,20 +202,33 @@ const SingleAccount = () => {
             visible={showNewCashFlow}
             setVisible={setShowNewCashFlow}
             title={"Generate Cash Flow Report"}
-            element={<GenerateCashFlowReport account_id={data.getAccount.id} />}
+            element={
+              <GenerateCashFlowReport
+                account_id={data.getAccount.id}
+                setShowNewCashFlow={setShowNewCashFlow}
+              />
+            }
           />
           <Modal
             visible={showNewIncome}
             setVisible={setShowNewIncome}
             title={"Generate Income Report"}
-            element={<GenerateIncomeReport account_id={data.getAccount.id} />}
+            element={
+              <GenerateIncomeReport
+                account_id={data.getAccount.id}
+                setShowNewIncome={setShowNewIncome}
+              />
+            }
           />
           <Modal
             visible={showNewBalanceSheet}
             setVisible={setShowNewBalanceSheet}
             title={"Generate Balance Sheet Report"}
             element={
-              <GenerateBalanceSheetReport account_id={data.getAccount.id} />
+              <GenerateBalanceSheetReport
+                account_id={data.getAccount.id}
+                setShowNewBalanceSheet={setShowNewBalanceSheet}
+              />
             }
           />
           {/* modals */}

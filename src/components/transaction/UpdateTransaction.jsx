@@ -13,7 +13,7 @@ import {
 } from "../../schema";
 import { setNewNotification, clearOldNotification } from "../../redux/toast";
 
-const UpdateTransaction = ({ account_id, id }) => {
+const UpdateTransaction = ({ account_id, id, setShowUpdate }) => {
   const dispatch = useDispatch();
 
   const [parent, setParent] = useState("");
@@ -69,6 +69,8 @@ const UpdateTransaction = ({ account_id, id }) => {
         });
 
         e.target.reset();
+
+        setShowUpdate(false);
       }}
     >
       <TransactionType setType={setType} />

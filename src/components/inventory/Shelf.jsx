@@ -101,13 +101,21 @@ const Shelf = ({ account_id }) => {
         visible={showCreate}
         setVisible={setShowCreate}
         title={"Create new product"}
-        element={<AddProduct account_id={account_id} />}
+        element={
+          <AddProduct account_id={account_id} setShowCreate={setShowCreate} />
+        }
       />
       <Modal
         visible={showUpdate}
         setVisible={setShowUpdate}
         title={"Update product"}
-        element={<UpdateProduct account_id={account_id} id={selectedRow} />}
+        element={
+          <UpdateProduct
+            account_id={account_id}
+            id={selectedRow}
+            setShowUpdate={setShowUpdate}
+          />
+        }
       />
       <Modal
         visible={confirmDelete}

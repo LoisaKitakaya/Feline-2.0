@@ -5,7 +5,7 @@ import ButtonSpinner from "../spinner/ButtonSpinner";
 import { UPDATE_ACCOUNT, GET_ACCOUNT, GET_ALL_ACCOUNTS } from "../../schema";
 import { setNewNotification, clearOldNotification } from "../../redux/toast";
 
-const UpdateAccount = ({ id }) => {
+const UpdateAccount = ({ id, setShowUpdate }) => {
   const dispatch = useDispatch();
 
   const [updateAccount, { loading, data, error }] = useMutation(
@@ -46,6 +46,8 @@ const UpdateAccount = ({ id }) => {
         });
 
         e.target.reset();
+
+        setShowUpdate(false);
       }}
     >
       <div className="mb-4">

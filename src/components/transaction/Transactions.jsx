@@ -101,13 +101,24 @@ const Transactions = ({ account_id }) => {
         visible={showCreate}
         setVisible={setShowCreate}
         title={"Create new transaction"}
-        element={<NewTransaction account_id={account_id} />}
+        element={
+          <NewTransaction
+            account_id={account_id}
+            setShowCreate={setShowCreate}
+          />
+        }
       />
       <Modal
         visible={showUpdate}
         setVisible={setShowUpdate}
         title={"Update transaction"}
-        element={<UpdateTransaction account_id={account_id} id={selectedRow} />}
+        element={
+          <UpdateTransaction
+            account_id={account_id}
+            id={selectedRow}
+            setShowUpdate={setShowUpdate}
+          />
+        }
       />
       <Modal
         visible={confirmDelete}

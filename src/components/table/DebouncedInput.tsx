@@ -29,7 +29,7 @@ function DebouncedInput({
       {...props}
       value={value}
       onChange={(e) => setValue(e.target.value)}
-      className="border rounded p-2 text-gray-700"
+      className="border rounded p-2 text-gray-700 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
     />
   );
 }

@@ -47,7 +47,7 @@ const Accounts = () => {
         visible={isOpen}
         setVisible={setIsOpen}
         title={"Create new account"}
-        element={<NewAccount />}
+        element={<NewAccount setIsOpen={setIsOpen} />}
       />
       {/* modal */}
     </>

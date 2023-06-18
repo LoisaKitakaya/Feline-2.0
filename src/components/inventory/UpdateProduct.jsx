@@ -8,7 +8,7 @@ import ProductSubCategory from "../recurring/ProductSubCategory";
 import { UPDATE_PRODUCT, GET_ALL_PRODUCTS } from "../../schema";
 import { setNewNotification, clearOldNotification } from "../../redux/toast";
 
-const UpdateProduct = ({ account_id, id }) => {
+const UpdateProduct = ({ account_id, id, setShowUpdate }) => {
   const dispatch = useDispatch();
 
   const [child, setChild] = useState("");
@@ -64,6 +64,8 @@ const UpdateProduct = ({ account_id, id }) => {
         });
 
         e.target.reset();
+
+        setShowUpdate(false);
       }}
     >
       <div className="mb-4">
