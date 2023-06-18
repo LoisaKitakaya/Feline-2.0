@@ -9,7 +9,7 @@ import {
   GENERATE_BALANCE_SHEET_STATEMENT,
 } from "../../schema";
 
-const GenerateBalanceSheetReport = ({ account_id }) => {
+const GenerateBalanceSheetReport = ({ account_id, setShowNewBalanceSheet }) => {
   const dispatch = useDispatch();
 
   const [assets, setAssets] = useState([]);
@@ -54,6 +54,8 @@ const GenerateBalanceSheetReport = ({ account_id }) => {
         equity: equity,
       },
     });
+
+    setShowNewBalanceSheet(false);
   };
 
   return (

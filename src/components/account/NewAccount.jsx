@@ -1,10 +1,11 @@
+/* eslint-disable react/prop-types */
 import { useDispatch } from "react-redux";
 import { useMutation } from "@apollo/client";
 import ButtonSpinner from "../spinner/ButtonSpinner";
 import { CREATE_ACCOUNT, GET_ALL_ACCOUNTS } from "../../schema";
 import { setNewNotification, clearOldNotification } from "../../redux/toast";
 
-const NewAccount = () => {
+const NewAccount = ({ setIsOpen }) => {
   const dispatch = useDispatch();
 
   const [createAccount, { loading, data, error }] = useMutation(
@@ -44,6 +45,8 @@ const NewAccount = () => {
         });
 
         e.target.reset();
+
+        setIsOpen(false);
       }}
     >
       <div className="mb-4">
@@ -83,6 +86,9 @@ const NewAccount = () => {
             name="currency_code"
             className="mt-1 block w-full rounded-md border focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
           >
+            <option value="" selected>
+              Select currency
+            </option>
             <option value="KES">KES</option>
             <option value="USD">USD</option>
           </select>

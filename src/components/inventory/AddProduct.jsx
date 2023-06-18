@@ -8,7 +8,7 @@ import ProductSubCategory from "../recurring/ProductSubCategory";
 import { CREATE_PRODUCT, GET_ALL_PRODUCTS } from "../../schema";
 import { setNewNotification, clearOldNotification } from "../../redux/toast";
 
-const AddProduct = ({ account_id }) => {
+const AddProduct = ({ account_id, setShowCreate }) => {
   const dispatch = useDispatch();
 
   const [parent, setParent] = useState(null);
@@ -64,6 +64,8 @@ const AddProduct = ({ account_id }) => {
         });
 
         e.target.reset();
+
+        setShowCreate(false);
       }}
     >
       <div className="mb-4">

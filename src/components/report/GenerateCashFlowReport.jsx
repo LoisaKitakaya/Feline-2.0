@@ -8,7 +8,7 @@ import {
   GENERATE_CASH_FLOW_STATEMENT,
 } from "../../schema";
 
-const GenerateCashFlowReport = ({ account_id }) => {
+const GenerateCashFlowReport = ({ account_id, setShowNewCashFlow }) => {
   const dispatch = useDispatch();
 
   const [generateCashFlowReport, { data, error, loading }] = useMutation(
@@ -54,6 +54,8 @@ const GenerateCashFlowReport = ({ account_id }) => {
         });
 
         e.target.reset();
+
+        setShowNewCashFlow(false);
       }}
     >
       <div className="mb-4">

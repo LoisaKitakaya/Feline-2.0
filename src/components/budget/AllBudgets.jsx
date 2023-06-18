@@ -2,9 +2,9 @@ import moment from "moment";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { useQuery } from "@apollo/client";
-import { GET_ALL_BUDGETS } from "../../assets/schema";
+import { GET_ALL_BUDGETS } from "../../schema";
 import ComponentSpinner from "../spinner/ComponentSpinner";
-import { setNewNotification } from "../../redux/reducers/toast";
+import { setNewNotification } from "../../redux/toast";
 
 const AllBudgets = () => {
   const dispatch = useDispatch();

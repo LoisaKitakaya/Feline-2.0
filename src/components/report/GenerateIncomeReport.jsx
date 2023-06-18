@@ -8,7 +8,7 @@ import {
   GENERATE_INCOME_STATEMENT,
 } from "../../schema";
 
-const GenerateIncomeReport = ({ account_id }) => {
+const GenerateIncomeReport = ({ account_id, setShowNewIncome }) => {
   const dispatch = useDispatch();
 
   const [generateIncomeReport, { data, error, loading }] = useMutation(
@@ -54,6 +54,8 @@ const GenerateIncomeReport = ({ account_id }) => {
         });
 
         e.target.reset();
+
+        setShowNewIncome(false);
       }}
     >
       <div className="mb-4">

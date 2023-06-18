@@ -67,8 +67,8 @@ const Tables = ({ data, columns, setSelectedRow }) => {
         <DebouncedInput
           value={globalFilter ?? ""}
           onChange={(value) => setGlobalFilter(String(value))}
-          className="p-2 font-lg shadow border border-block"
-          placeholder="Search all columns..."
+          placeholder="Search all data..."
+          style={{ width: "100%" }}
         />
       </div>
       <hr className="my-2 border-none" />

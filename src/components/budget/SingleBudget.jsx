@@ -6,9 +6,9 @@ import { useDispatch } from "react-redux";
 import UpdateBudget from "./UpdateBudget";
 import DeleteBudget from "./DeleteBudget";
 import { useParams } from "react-router-dom";
-import { GET_BUDGET } from "../../assets/schema";
+import { GET_BUDGET } from "../../schema";
 import ComponentSpinner from "../spinner/ComponentSpinner";
-import { setNewNotification } from "../../redux/reducers/toast";
+import { setNewNotification } from "../../redux/toast";
 
 const SingleBudget = () => {
   const { id } = useParams();
