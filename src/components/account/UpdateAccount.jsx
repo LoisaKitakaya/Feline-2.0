@@ -87,6 +87,9 @@ const UpdateAccount = ({ id, setShowUpdate }) => {
             name="currency_code"
             className="mt-1 block w-full rounded-md border focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
           >
+            <option value="" selected>
+              Select currency
+            </option>
             <option value="KES">KES</option>
             <option value="USD">USD</option>
           </select>
