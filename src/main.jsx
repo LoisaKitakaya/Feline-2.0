@@ -17,6 +17,8 @@ import store from "./store.js";
 import "react-tabs/style/react-tabs.css";
 import 'react-accessible-accordion/dist/fancy-example.css';
 
+window.global ||= window;
+
 if (!import.meta.env.VITE_REACT_APP_TOMCAT) {
   console.warn("Missing Backend Endpoint");
 }
