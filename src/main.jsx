@@ -21,7 +21,7 @@ if (!import.meta.env.VITE_REACT_APP_TOMCAT) {
   console.warn("Missing Backend Endpoint");
 }
 
-const tomcat = import.meta.env.VITE_REACT_APP_TOMCAT;
+export const tomcat = import.meta.env.VITE_REACT_APP_TOMCAT;
 
 const httpLink = createHttpLink({
   uri: tomcat ? tomcat : "http://127.0.0.1:8000/graphql/",
