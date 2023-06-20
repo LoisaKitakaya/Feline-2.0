@@ -25,12 +25,22 @@ const CashFlow = () => {
     <>
       <div className="mb-4">
         <h4 className="text-2xl font-semibold">Cash Flow Statement</h4>
-        <p className="text-lg font-thin italic">
-          A cash flow statement tracks the movement of cash in and out of a
-          business.
-        </p>
+        <div className="flex justify-between items-center">
+          <p className="text-lg font-thin italic">
+            A cash flow statement tracks the movement of cash in and out of a
+            business.
+          </p>
+          <div className="flex justify-end items-center gap-4">
+            <button className="rounded-md border py-2 px-4">
+              <i className="bi bi-download"></i> Download report
+            </button>
+            <button className="rounded-md border py-2 px-4">
+              <i className="bi bi-trash"></i> Delete report
+            </button>
+          </div>
+        </div>
       </div>
-      <hr className="my-2" />
+      <hr className="mb-4" />
       <CashFlowStatement uid={uid} />
     </>
   );

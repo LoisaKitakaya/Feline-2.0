@@ -294,8 +294,6 @@ export const GET_CASH_FLOW_STATEMENT = gql`
         activity
         amount
         is_income
-        period_start_date
-        period_end_date
       }
     }
   }

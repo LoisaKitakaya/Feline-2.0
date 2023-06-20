@@ -25,11 +25,16 @@ const Income = () => {
     <>
       <div className="mb-4">
         <h4 className="text-2xl font-semibold">Income Statement</h4>
-        <p className="text-lg font-thin italic">
-          {
-            "An income statement summarizes a company's revenue, expenses, and profitability over a specific period."
-          }
-        </p>
+        <div className="flex justify-between items-center">
+          <p className="text-lg font-thin italic">
+            {
+              "An income statement summarizes a company's revenue, expenses, and profitability over a specific period."
+            }
+          </p>
+          <button className="rounded-md border py-2 px-4">
+            <i className="bi bi-download"></i> Download report
+          </button>
+        </div>
       </div>
       <hr className="my-2" />
       <IncomeStatement uid={uid} />
