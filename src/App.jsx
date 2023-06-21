@@ -16,6 +16,9 @@ import Home from "./pages/Home";
 import Accounts from "./pages/Accounts";
 import CheckAuth from "./components/auth/CheckAuth";
 import Account from "./pages/Account";
+import CashFlow from "./pages/CashFlow";
+import Income from "./pages/Income";
+import BalanceSheet from "./pages/BalanceSheet";
 
 if (!import.meta.env.VITE_REACT_APP_CLERK_PUBLISHABLE_KEY) {
   throw new Error("Missing Publishable Key");
@@ -85,6 +88,19 @@ const App = () => {
             }
           />
           <Route
+            path="/check-auth"
+            element={
+              <>
+                <SignedIn>
+                  <PageView view={<CheckAuth />} subTitle={"Check auth"} />
+                </SignedIn>
+                <SignedOut>
+                  <RedirectToSignIn />
+                </SignedOut>
+              </>
+            }
+          />
+          <Route
             path="/accounts"
             element={
               <>
@@ -111,11 +127,37 @@ const App = () => {
             }
           />
           <Route
-            path="/check-auth"
+            path="/cash-flow/:uid"
             element={
               <>
                 <SignedIn>
-                  <PageView view={<CheckAuth />} subTitle={"Check auth"} />
+                  <PageView view={<CashFlow />} subTitle={"Cash Flow"} />
+                </SignedIn>
+                <SignedOut>
+                  <RedirectToSignIn />
+                </SignedOut>
+              </>
+            }
+          />
+          <Route
+            path="/income/:uid"
+            element={
+              <>
+                <SignedIn>
+                  <PageView view={<Income />} subTitle={"Income"} />
+                </SignedIn>
+                <SignedOut>
+                  <RedirectToSignIn />
+                </SignedOut>
+              </>
+            }
+          />
+          <Route
+            path="/balance-sheet/:uid"
+            element={
+              <>
+                <SignedIn>
+                  <PageView view={<BalanceSheet />} subTitle={"Income"} />
                 </SignedIn>
                 <SignedOut>
                   <RedirectToSignIn />
