@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useMutation } from "@apollo/client";
@@ -8,7 +9,7 @@ import { CREATE_BUDGET, GET_ALL_BUDGETS } from "../../schema";
 import TransactionSubCategory from "../recurring/TransactionSubCategory";
 import { setNewNotification, clearOldNotification } from "../../redux/toast";
 
-const NewBudget = () => {
+const NewBudget = ({ setIsOpen }) => {
   const dispatch = useDispatch();
 
   const [parent, setParent] = useState(null);
@@ -52,6 +53,8 @@ const NewBudget = () => {
         });
 
         e.target.reset();
+
+        setIsOpen(false);
       }}
     >
       <AccountList />

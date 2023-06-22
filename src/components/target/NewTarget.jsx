@@ -8,7 +8,7 @@ import { CREATE_TARGET, GET_ALL_TARGETS } from "../../schema";
 import TransactionSubCategory from "../recurring/TransactionSubCategory";
 import { setNewNotification, clearOldNotification } from "../../redux/toast";
 
-const NewTarget = () => {
+const NewTarget = ({ setIsOpen }) => {
   const dispatch = useDispatch();
 
   const [parent, setParent] = useState(null);
@@ -52,6 +52,8 @@ const NewTarget = () => {
         });
 
         e.target.reset();
+
+        setIsOpen(false);
       }}
     >
       <AccountList />
