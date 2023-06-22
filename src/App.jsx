@@ -23,6 +23,7 @@ import Budgets from "./pages/Budgets";
 import Budget from "./pages/Budget";
 import Targets from "./pages/Targets";
 import Target from "./pages/Target";
+import CleanUp from "./components/auth/CleanUp";
 
 if (!import.meta.env.VITE_REACT_APP_CLERK_PUBLISHABLE_KEY) {
   throw new Error("Missing Publishable Key");
@@ -99,6 +100,7 @@ const App = () => {
                   <PageView view={<CheckAuth />} subTitle={"Check auth"} />
                 </SignedIn>
                 <SignedOut>
+                  <CleanUp />
                   <RedirectToSignIn />
                 </SignedOut>
               </>
@@ -112,6 +114,7 @@ const App = () => {
                   <PageView view={<Accounts />} subTitle={"Accounts"} />
                 </SignedIn>
                 <SignedOut>
+                  <CleanUp />
                   <RedirectToSignIn />
                 </SignedOut>
               </>
@@ -125,6 +128,7 @@ const App = () => {
                   <PageView view={<Account />} subTitle={"Account"} />
                 </SignedIn>
                 <SignedOut>
+                  <CleanUp />
                   <RedirectToSignIn />
                 </SignedOut>
               </>
@@ -138,6 +142,7 @@ const App = () => {
                   <PageView view={<CashFlow />} subTitle={"Cash Flow"} />
                 </SignedIn>
                 <SignedOut>
+                  <CleanUp />
                   <RedirectToSignIn />
                 </SignedOut>
               </>
@@ -151,6 +156,7 @@ const App = () => {
                   <PageView view={<Income />} subTitle={"Income"} />
                 </SignedIn>
                 <SignedOut>
+                  <CleanUp />
                   <RedirectToSignIn />
                 </SignedOut>
               </>
@@ -164,6 +170,7 @@ const App = () => {
                   <PageView view={<BalanceSheet />} subTitle={"Income"} />
                 </SignedIn>
                 <SignedOut>
+                  <CleanUp />
                   <RedirectToSignIn />
                 </SignedOut>
               </>
@@ -177,6 +184,7 @@ const App = () => {
                   <PageView view={<Budgets />} subTitle={"Budgets"} />
                 </SignedIn>
                 <SignedOut>
+                  <CleanUp />
                   <RedirectToSignIn />
                 </SignedOut>
               </>
@@ -190,6 +198,7 @@ const App = () => {
                   <PageView view={<Budget />} subTitle={"Budget"} />
                 </SignedIn>
                 <SignedOut>
+                  <CleanUp />
                   <RedirectToSignIn />
                 </SignedOut>
               </>
@@ -203,6 +212,7 @@ const App = () => {
                   <PageView view={<Targets />} subTitle={"Targets"} />
                 </SignedIn>
                 <SignedOut>
+                  <CleanUp />
                   <RedirectToSignIn />
                 </SignedOut>
               </>
@@ -216,6 +226,7 @@ const App = () => {
                   <PageView view={<Target />} subTitle={"Target"} />
                 </SignedIn>
                 <SignedOut>
+                  <CleanUp />
                   <RedirectToSignIn />
                 </SignedOut>
               </>
