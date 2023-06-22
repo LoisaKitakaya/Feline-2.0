@@ -26,6 +26,8 @@ import Targets from "./pages/Targets";
 import Target from "./pages/Target";
 import CleanUp from "./components/auth/CleanUp";
 import KeepTabs from "./headway/KeepTabs";
+import Invoices from "./pages/Invoices";
+import Invoice from "./pages/Invoice";
 
 if (!import.meta.env.VITE_REACT_APP_CLERK_PUBLISHABLE_KEY) {
   throw new Error("Missing Publishable Key");
@@ -232,6 +234,34 @@ const App = () => {
               <>
                 <SignedIn>
                   <PageView view={<Target />} subTitle={"Target"} />
+                </SignedIn>
+                <SignedOut>
+                  <CleanUp />
+                  <RedirectToSignIn />
+                </SignedOut>
+              </>
+            }
+          />
+          <Route
+            path="/invoice"
+            element={
+              <>
+                <SignedIn>
+                  <PageView view={<Invoices />} subTitle={"Invoices"} />
+                </SignedIn>
+                <SignedOut>
+                  <CleanUp />
+                  <RedirectToSignIn />
+                </SignedOut>
+              </>
+            }
+          />
+          <Route
+            path="/invoice/:id"
+            element={
+              <>
+                <SignedIn>
+                  <PageView view={<Invoice />} subTitle={"Invoice"} />
                 </SignedIn>
                 <SignedOut>
                   <CleanUp />
