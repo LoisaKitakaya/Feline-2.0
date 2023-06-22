@@ -2,6 +2,7 @@ import { Routes, Route, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import toast, { Toaster } from "react-hot-toast";
+import { tomcat } from "./main";
 import {
   ClerkProvider,
   SignedIn,
@@ -19,6 +20,14 @@ import Account from "./pages/Account";
 import CashFlow from "./pages/CashFlow";
 import Income from "./pages/Income";
 import BalanceSheet from "./pages/BalanceSheet";
+import Budgets from "./pages/Budgets";
+import Budget from "./pages/Budget";
+import Targets from "./pages/Targets";
+import Target from "./pages/Target";
+import CleanUp from "./components/auth/CleanUp";
+import KeepTabs from "./headway/KeepTabs";
+import Invoices from "./pages/Invoices";
+import Invoice from "./pages/Invoice";
 
 if (!import.meta.env.VITE_REACT_APP_CLERK_PUBLISHABLE_KEY) {
   throw new Error("Missing Publishable Key");
@@ -59,6 +68,12 @@ const App = () => {
             path="/"
             element={<PageView view={<Home />} subTitle={"Home"} />}
           />
+          {!tomcat && (
+            <Route
+              path="/progress"
+              element={<PageView view={<KeepTabs />} subTitle={"Progress"} />}
+            />
+          )}
           <Route
             path="/sign-in/*"
             element={
@@ -95,6 +110,7 @@ const App = () => {
                   <PageView view={<CheckAuth />} subTitle={"Check auth"} />
                 </SignedIn>
                 <SignedOut>
+                  <CleanUp />
                   <RedirectToSignIn />
                 </SignedOut>
               </>
@@ -108,6 +124,7 @@ const App = () => {
                   <PageView view={<Accounts />} subTitle={"Accounts"} />
                 </SignedIn>
                 <SignedOut>
+                  <CleanUp />
                   <RedirectToSignIn />
                 </SignedOut>
               </>
@@ -121,6 +138,7 @@ const App = () => {
                   <PageView view={<Account />} subTitle={"Account"} />
                 </SignedIn>
                 <SignedOut>
+                  <CleanUp />
                   <RedirectToSignIn />
                 </SignedOut>
               </>
@@ -134,6 +152,7 @@ const App = () => {
                   <PageView view={<CashFlow />} subTitle={"Cash Flow"} />
                 </SignedIn>
                 <SignedOut>
+                  <CleanUp />
                   <RedirectToSignIn />
                 </SignedOut>
               </>
@@ -147,6 +166,7 @@ const App = () => {
                   <PageView view={<Income />} subTitle={"Income"} />
                 </SignedIn>
                 <SignedOut>
+                  <CleanUp />
                   <RedirectToSignIn />
                 </SignedOut>
               </>
@@ -160,6 +180,91 @@ const App = () => {
                   <PageView view={<BalanceSheet />} subTitle={"Income"} />
                 </SignedIn>
                 <SignedOut>
+                  <CleanUp />
+                  <RedirectToSignIn />
+                </SignedOut>
+              </>
+            }
+          />
+          <Route
+            path="/budget"
+            element={
+              <>
+                <SignedIn>
+                  <PageView view={<Budgets />} subTitle={"Budgets"} />
+                </SignedIn>
+                <SignedOut>
+                  <CleanUp />
+                  <RedirectToSignIn />
+                </SignedOut>
+              </>
+            }
+          />
+          <Route
+            path="/budget/:id"
+            element={
+              <>
+                <SignedIn>
+                  <PageView view={<Budget />} subTitle={"Budget"} />
+                </SignedIn>
+                <SignedOut>
+                  <CleanUp />
+                  <RedirectToSignIn />
+                </SignedOut>
+              </>
+            }
+          />
+          <Route
+            path="/target"
+            element={
+              <>
+                <SignedIn>
+                  <PageView view={<Targets />} subTitle={"Targets"} />
+                </SignedIn>
+                <SignedOut>
+                  <CleanUp />
+                  <RedirectToSignIn />
+                </SignedOut>
+              </>
+            }
+          />
+          <Route
+            path="/target/:id"
+            element={
+              <>
+                <SignedIn>
+                  <PageView view={<Target />} subTitle={"Target"} />
+                </SignedIn>
+                <SignedOut>
+                  <CleanUp />
+                  <RedirectToSignIn />
+                </SignedOut>
+              </>
+            }
+          />
+          <Route
+            path="/invoice"
+            element={
+              <>
+                <SignedIn>
+                  <PageView view={<Invoices />} subTitle={"Invoices"} />
+                </SignedIn>
+                <SignedOut>
+                  <CleanUp />
+                  <RedirectToSignIn />
+                </SignedOut>
+              </>
+            }
+          />
+          <Route
+            path="/invoice/:id"
+            element={
+              <>
+                <SignedIn>
+                  <PageView view={<Invoice />} subTitle={"Invoice"} />
+                </SignedIn>
+                <SignedOut>
+                  <CleanUp />
                   <RedirectToSignIn />
                 </SignedOut>
               </>

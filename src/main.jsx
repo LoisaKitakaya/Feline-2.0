@@ -12,10 +12,11 @@ import {
 
 import App from "./App.jsx";
 
-import "./index.css";
 import store from "./store.js";
+
+import "./index.css";
 import "react-tabs/style/react-tabs.css";
-import 'react-accessible-accordion/dist/fancy-example.css';
+import "react-accessible-accordion/dist/fancy-example.css";
 
 window.global ||= window;
 
@@ -43,7 +44,7 @@ const cache = new InMemoryCache();
 
 const client = new ApolloClient({
   link: authLink.concat(httpLink),
-  cache: cache,
+  cache,
 });
 
 export const removeItemFromCache = (type, id) => {
@@ -51,7 +52,17 @@ export const removeItemFromCache = (type, id) => {
   cache.evict(cacheKey);
 };
 
-ReactDOM.createRoot(document.getElementById("root")).render(
+const prod = (
+  <ApolloProvider client={client}>
+    <Provider store={store}>
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
+    </Provider>
+  </ApolloProvider>
+);
+
+const dev = (
   <React.StrictMode>
     <ApolloProvider client={client}>
       <Provider store={store}>
@@ -61,4 +72,8 @@ ReactDOM.createRoot(document.getElementById("root")).render(
       </Provider>
     </ApolloProvider>
   </React.StrictMode>
+);
+
+ReactDOM.createRoot(document.getElementById("root")).render(
+  tomcat ? prod : dev
 );
