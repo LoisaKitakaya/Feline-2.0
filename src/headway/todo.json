@@ -1,0 +1,66 @@
+{
+  "todo": [
+    {
+      "short-term": [
+        {
+          "task": "Create cleanup function to delete backend auth token from localstorage during signing out with clerk (solve issue of user registration and authentication after signing out)",
+          "complete": true
+        },
+        {
+          "task": "Add Budgets and Targets pages to app (copy from previous code base)",
+          "complete": true
+        },
+        {
+          "task": "Add charts to budgets and targets pages (user can be able to easily track progress)",
+          "complete": false
+        },
+        {
+          "task": "Add budget and target status update (user can change the status of the budget or target to either active or inactive)",
+          "complete": false
+        },
+        {
+          "task": "Add delete functionality to reports (user can be able to delete reports as they so wish)",
+          "complete": false
+        },
+        {
+          "task": "Render reports as PDFs using react-pdf (make it possible to download reports in pdf format)",
+          "complete": false
+        },
+        {
+          "task": "Add download functionality to reports (users are able to download reports in pdf format)",
+          "complete": false
+        },
+        {
+          "task": "Render reports as PDFs using react-pdf (make it possible to download reports in pdf format)",
+          "complete": false
+        },
+        {
+          "task": "Begin working on invoices",
+          "complete": true
+        },
+        {
+          "task": "While working on invoices, add client and payment info as functions in recurring folder (make it possible to reuse client and payment info from any point in the application)",
+          "complete": false
+        },
+        {
+          "task": "Use redux to manage theme change (make theme state persistent)",
+          "complete": false
+        }
+      ]
+    },
+    {
+      "medium-term": [
+        { "task": "Return 2FA to app (enhance security)", "complete": false },
+        { "task": "Make app responsive (enhance UX)", "complete": false }
+      ]
+    },
+    {
+      "long-term": [
+        {
+          "task": "Work on payment processing (handle user subscription)",
+          "complete": false
+        }
+      ]
+    }
+  ]
+}

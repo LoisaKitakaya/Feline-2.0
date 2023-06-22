@@ -3,6 +3,7 @@ import Drawer from "./Drawer";
 import ThemeToggle from "../themes/ThemeToggle";
 import { Link } from "react-router-dom";
 import { UserButton } from "@clerk/clerk-react";
+import { tomcat } from "../../main";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -95,6 +96,19 @@ const Navbar = () => {
               <span className="flex justify-end mr-8">Security</span>
             </Link>
           </li>
+          {!tomcat && (
+            <li className="text-xl my-6 hover:text-emerald-600 cursor-pointer px-8">
+              <Link
+                to="/progress"
+                className="flex justify-between items-center"
+                onClick={() => setIsOpen(false)}
+              >
+                <i className="bi bi-flag flex justify-start ml-8"></i>
+                <span>-</span>
+                <span className="flex justify-end mr-8">Progress</span>
+              </Link>
+            </li>
+          )}
           <li className="text-xl my-6 hover:text-emerald-600 cursor-pointer px-8">
             <Link
               to="/assistant"

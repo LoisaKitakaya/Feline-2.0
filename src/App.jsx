@@ -2,6 +2,7 @@ import { Routes, Route, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import toast, { Toaster } from "react-hot-toast";
+import { tomcat } from "./main";
 import {
   ClerkProvider,
   SignedIn,
@@ -24,6 +25,7 @@ import Budget from "./pages/Budget";
 import Targets from "./pages/Targets";
 import Target from "./pages/Target";
 import CleanUp from "./components/auth/CleanUp";
+import KeepTabs from "./headway/KeepTabs";
 
 if (!import.meta.env.VITE_REACT_APP_CLERK_PUBLISHABLE_KEY) {
   throw new Error("Missing Publishable Key");
@@ -64,6 +66,12 @@ const App = () => {
             path="/"
             element={<PageView view={<Home />} subTitle={"Home"} />}
           />
+          {!tomcat && (
+            <Route
+              path="/progress"
+              element={<PageView view={<KeepTabs />} subTitle={"Progress"} />}
+            />
+          )}
           <Route
             path="/sign-in/*"
             element={
